@@ -1,0 +1,37 @@
+# Maintainer: GhettoGirl <github.com/GhettoGirl>
+
+pkgname=markdown-editor
+pkgver=0.5.2
+pkgrel=1
+pkgdesc="Live (GitHub-flavored) Markdown Editor"
+arch=('i686' 'x86_64')
+url="https://github.com/GhettoGirl/markdown-editor"
+license=('WTFPL')
+depends=('gtk2' 'gconf' 'glibc' 'alsa-lib' 'nspr' 'nss')
+options=('!strip')
+source=("https://raw.githubusercontent.com/GhettoGirl/$pkgname/master/icon.png"
+        "https://raw.githubusercontent.com/GhettoGirl/$pkgname/master/dist/$pkgname.desktop")
+source_i686=("https://github.com/GhettoGirl/$pkgname/releases/download/v$pkgver/$pkgname-linux-ia32.tar.gz")
+source_x86_64=("https://github.com/GhettoGirl/$pkgname/releases/download/v$pkgver/$pkgname-linux-x64.tar.gz")
+md5sums_i686=('5f5cee0d1cf29040516e207f455fbb5e')
+md5sums_x86_64=('147ec6ebed14498bee0e1f2a3fe072ff')
+md5sums=('45e8a36a0feabe0415f1269885724487'
+         '579f258470bfd66f185030328cb45d34')
+
+package() {
+    cd "$srcdir"
+    
+    [ "$CARCH" == "i686" ] && carch=ia32 || carch=x64
+    
+    mkdir -p "$pkgdir/opt"
+    mv "$pkgname-linux-$carch" "$pkgdir/opt/markdown-editor"
+    
+    mkdir -p "$pkgdir/usr/share/icons/hicolor/128x128/apps"
+    cp "icon.png" "$pkgdir/usr/share/icons/hicolor/128x128/apps/$pkgname.png"
+    
+    mkdir -p "$pkgdir/usr/share/applications"
+    cp "$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+    
+    mkdir -p "$pkgdir/usr/bin"
+    ln -s "/opt/$pkgname/$pkgname" "$pkgdir/usr/bin/$pkgname"
+}
