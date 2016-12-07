@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Markdown Editor
+Comment=Live (GitHub-flavored) Markdown Editor
+Icon=markdown-editor
+Exec=markdown-editor
+Terminal=false
+Type=Application
+Categories=Utilities;
+Keywords=Markdown;Editor;GitHub;
